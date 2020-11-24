@@ -1,0 +1,20 @@
+{
+  "Author": "RockDood, Pruz",
+  "Compatibility": "Compatible",
+  "Contributors": {
+    "Developer": [ "RockDood" ],
+    "Maintainer": [ "RockDood" ],
+    "Manual": [ "Pruz" ]
+  },
+  "DefuserDifficulty": "Easy",
+  "Description": "Move the needle before solves to Valid or Invalid based the LED statuses",
+  "ExpertDifficulty": "VeryEasy",
+  "ModuleID": "ValidationNeedy",
+  "MysteryModule": "MustNotBeHiddenOrKey",
+  "Name": "Validation",
+  "Origin": "Mods",
+  "Published": "2020-11-24",
+  "SortKey": "VALIDATION",
+  "SteamID": 2297541858,
+  "Type": "Needy"
+}
