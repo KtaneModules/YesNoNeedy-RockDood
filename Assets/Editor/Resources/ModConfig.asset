@@ -18,8 +18,8 @@ MonoBehaviour:
     and other input criteria.[/i]
 
 
-    Manual Challenge in the KTANE Discord, Join the fun in deducing the manual for
-    this module [url=https://discord.gg/ktane]here[/url]'
+    Originally posted as a Manual Challenge in the KTANE Discord, the manual for this
+    module can be found [url=https://ktane.timwi.de/HTML/Validation.html]here[/url]'
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: b30e8ae51d1be1f46b3191486521a701, type: 3}

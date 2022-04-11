@@ -38,7 +38,7 @@ public class ValidationScript : MonoBehaviour
     {
         _moduleId = _moduleIdCounter++;
         GetComponent<KMNeedyModule>().OnNeedyActivation += NeedyStart;
-        GetComponent<KMNeedyModule>().OnNeedyDeactivation += YouFuckedUp;
+        //GetComponent<KMNeedyModule>().OnNeedyDeactivation += YouFuckedUp;
         Dial.OnInteract += delegate { DialToggle(); return false; };
     }
 
@@ -55,7 +55,7 @@ public class ValidationScript : MonoBehaviour
                 Needy.SetNeedyTimeRemaining(SelectedNumber);
             }
         }
-        //This calls the Coroutine to evaluate if the last solve was correct
+        //This calls the method to evaluate if the last solve was correct
         if (Solves != _Bomb.GetSolvedModuleNames().Count())
         {
             MostRecent = GetLatestSolve(_Bomb.GetSolvedModuleNames(), SolveList);
@@ -285,23 +285,31 @@ public class ValidationScript : MonoBehaviour
         Debug.Log(validLetters.Contains(lastInput) ? "Valid Input Recieved" : "Invalid Input Recieved");
         if (ValidState == validLetters.Contains(lastInput))
         {
-            Debug.Log("Needle position matches Valid input state");
+            Debug.Log("Needle position matches required input state");
             return;
         }
         else
         {
             for (int i = 0; i < ledStates.Length; i++)
                 LEDs[i].material = OffOn[0];
-            Debug.Log("Needle position does not match Valid input state");
-            Needy.HandleStrike();
+            Debug.Log("Needle position does not match required input state");
             YouFuckedUp();
         }
     }
 
     void YouFuckedUp()
     {
-        
-        Needy.HandlePass();//Have a Gold Star for trying though.
+        if (_Bomb.GetSolvedModuleNames().Count() < _Bomb.GetSolvableModuleNames().Count())
+        {
+            Needy.HandleStrike();
+            Debug.Log("[Validation #" + _moduleId + "] Strike Issued");
+            Needy.HandlePass();
+        }
+        else
+        {
+            Debug.LogFormat("[Validation #{0}] Validation state for the last the module was wrong, ya noodle.",_moduleId);
+            Needy.HandlePass();//Have a Gold Star for trying though.
+        }
     }
 
     private string GetLatestSolve(List<string> a, List<string> b)
@@ -314,5 +322,18 @@ public class ValidationScript : MonoBehaviour
 
         z = a.ElementAt(0);
         return z;
+    }
+
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} tap [Taps the meter]";
+#pragma warning restore 414
+
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+        if (Regex.IsMatch(command, @"^\s*tap\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            yield return null;
+            Dial.OnInteract();
+        }
     }
 }
