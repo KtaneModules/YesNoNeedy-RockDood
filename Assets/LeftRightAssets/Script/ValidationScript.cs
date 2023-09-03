@@ -304,11 +304,13 @@ public class ValidationScript : MonoBehaviour
             Needy.HandleStrike();
             Debug.Log("[Validation #" + _moduleId + "] Strike Issued");
             Needy.HandlePass();
+            NeedyActive = false;
         }
         else
         {
             Debug.LogFormat("[Validation #{0}] Validation state for the last the module was wrong, ya noodle.",_moduleId);
             Needy.HandlePass();//Have a Gold Star for trying though.
+            NeedyActive = false;
         }
     }
 
